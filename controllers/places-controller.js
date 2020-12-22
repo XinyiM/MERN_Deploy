@@ -68,7 +68,6 @@ const getPlacesbyUserId = async (req, res, next) => {
 };
 
 const createPlace = async (req, res, next) => {
-    console.log(req);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         // in async functions, you should use next but not throw

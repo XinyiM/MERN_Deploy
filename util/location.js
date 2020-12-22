@@ -1,6 +1,6 @@
 const axios = require('axios');
 const HttpError = require('../models/http-error');
-const API_KEY = process.eventNames.GOOGLE_API_KEY;
+const API_KEY = process.env.GOOGLE_API_KEY;
 
 // axios is used to send HTTP Methods from frontend applications to backend
 // Axios can also be used on a Node Server,sending request from it.

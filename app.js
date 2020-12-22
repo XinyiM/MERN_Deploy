@@ -53,7 +53,7 @@ app.use((error, req, res, next) => {
     if(req.file){
         // delete the file
         fs.unlink(req.file.path, (err) => {
-            console.log(err);
+            console.log("Err:"+err);
         })
     }
     if(res.headerSent){
