@@ -21,26 +21,32 @@ app.use(bodyParser.json());
 
 app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 // just return a serving, do not execute anything
+app.use(express.static(path.join('build'))); 
 
-app.use((req, res, next ) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader(
-        'Access-Control-Allow-Headers', 
-        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    );
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
-    next(); // let the request to continue with other middlewares 
-});
+
+// app.use((req, res, next ) => {
+//     res.setHeader('Access-Control-Allow-Origin', '*');
+//     res.setHeader(
+//         'Access-Control-Allow-Headers', 
+//         'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+//     );
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
+//     next(); // let the request to continue with other middlewares 
+// });
 
 //use the placesRoutes as a middleware
 app.use('/api/places', placesRoutes); // => /api/palces/something
 app.use('/api/users', userRoutes);
 
-//add middleware is only reached if some request that didnt get a response
 app.use((req, res, next) => {
-    const error = new HttpError('Could not find this route', 404);
-    throw error;
-});
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+})
+
+//add middleware is only reached if some request that didnt get a response
+// app.use((req, res, next) => {
+//     const error = new HttpError('Could not find this route', 404);
+//     throw error;
+// });
 
 // error handling
 app.use((error, req, res, next) => {
@@ -58,8 +64,6 @@ app.use((error, req, res, next) => {
     res.json({message: error.message || "An unknown error occured!"});
 });
 
-console.log(process.env.JWT_KEY);
-console.log(process.env.DB_NAME);
 
 mongoose
     .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.oxhrw.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`) 
