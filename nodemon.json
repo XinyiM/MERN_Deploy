@@ -2,7 +2,7 @@
     "env": {
         "DB_USER": "new_user",
         "DB_PASSWORD": "36BI6H05ZpG3JrkM",
-        "DB_NAME": "mern",
+        "DB_NAME": "mern_prod",
         "GOOGLE_API_KEY": "AIzaSyDS9rXZEjckzw-bSQ84p3oHMcSVWTufa8g",
         "JWT_KEY": "supersecret_dont_share"
     }
